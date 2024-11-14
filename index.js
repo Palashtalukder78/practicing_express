@@ -1,12 +1,20 @@
 const express = require('express')
 const app = express()
 
-app.use(express.static(__dirname + '/public/'))
+// app.use(express.static(__dirname + '/public/', {
+//     index:'home.html'
+// }))
 
-app.get('/', (req, res) => {
+const router = express.Router({
+    caseSensitive: true
+})
+
+app.use(router)
+
+router.get('/about', (req, res) => {
     res.send('This is the Home page')
 })
-app.post('/', (req, res) => {
+router.post('/', (req, res) => {
     res.send('This is the Home page with post method')
 })
 
