@@ -1,23 +1,26 @@
 const express = require('express')
-const app = express()
+const app = express();
+const admin = express();
 
-// app.use(express.static(__dirname + '/public/', {
-//     index:'home.html'
-// }))
-
-const router = express.Router({
-    caseSensitive: true
+app.param('id', (req,res,next,id) =>{
+    const user ={
+        userId: id,
+        country: 'Bangladesh'
+    }
+    req.userDetails = user;
+    next()
 })
 
-app.use(router)
-
-router.get('/about', (req, res) => {
+app.get('/user/:id', (req, res) => {
+    console.log(req.userDetails)
     res.send('This is the Home page')
 })
-router.post('/', (req, res) => {
-    res.send('This is the Home page with post method')
+admin.post('/', (req, res) => {
+    res.send('This is admin dashboard page')
 })
 
+
+app.use('/admin', admin);
 app.listen(4000, () => {
     console.log("The running port is: 4000")
 })
