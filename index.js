@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const handler = require('./handler');
 
 const adminRoute = express.Router()
 app.use('/admin', adminRoute)
@@ -14,10 +15,7 @@ adminRoute.get('/dashboard',(req,res)=>{
 
 
 
-app.get('/user/:id', (req, res) => {
-    console.log(req.cookies)
-    res.send('This is the Home page')
-})
+app.get('/user/:id', handler)
 app.post('/user/', (req, res) => {
     console.log(req.body)
     res.send('This is the POST page')
