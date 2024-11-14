@@ -3,19 +3,22 @@ const app = express();
 
 const adminRoute = express.Router()
 app.use('/admin', adminRoute)
+app.use(express.json())
 
 adminRoute.get('/dashboard',(req,res)=>{
-    console.log(req.originalUrl)
-    console.log(req.url)
+    console.log(req.ip)
     res.send('We are in admin dashboard')
 })
 
 
 
 app.get('/user/:id', (req, res) => {
-    console.log(req.originalUrl)
-    console.log(req.url)
+    console.log(req.query)
     res.send('This is the Home page')
+})
+app.post('/user/', (req, res) => {
+    console.log(req.body)
+    res.send('This is the POST page')
 })
 
 app.listen(4000, () => {
