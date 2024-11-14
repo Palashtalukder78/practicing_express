@@ -1,26 +1,19 @@
 const express = require('express')
 const app = express();
 
-app.set('view engine', 'ejs')
+const adminRoute = express.Router()
+app.use('/admin', adminRoute)
 
-app.route('/users')
-    .get((req, res) => {
-        res.render('pages/about')
-    })
-    .post((req, res) => {
-        res.send('This is the Home page for POST')
-    })
-    .put((req, res) => {
-        res.send('This is the Home page for PUT')
-    })
+adminRoute.get('/dashboard',(req,res)=>{
+    console.log(req.baseUrl)
+    res.send('We are in admin dashboard')
+})
 
-// app.get('/user/:id', (req, res) => {
-//     console.log(req.userDetails)
-//     res.send('This is the Home page')
-// })
-// admin.post('/', (req, res) => {
-//     res.send('This is admin dashboard page')
-// })
+
+
+app.get('/user/:id', (req, res) => {
+    res.send('This is the Home page')
+})
 
 app.listen(4000, () => {
     console.log("The running port is: 4000")
