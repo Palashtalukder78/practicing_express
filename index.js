@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express();
+const cookieParser = require('cookie-parser')
 
 const adminRoute = express.Router()
 app.use('/admin', adminRoute)
 app.use(express.json())
+app.use(cookieParser())
 
 adminRoute.get('/dashboard',(req,res)=>{
     console.log(req.ip)
@@ -13,7 +15,7 @@ adminRoute.get('/dashboard',(req,res)=>{
 
 
 app.get('/user/:id', (req, res) => {
-    console.log(req.query)
+    console.log(req.cookies)
     res.send('This is the Home page')
 })
 app.post('/user/', (req, res) => {
