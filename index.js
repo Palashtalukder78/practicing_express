@@ -1,12 +1,10 @@
 const express = require('express')
 const app = express();
 
-app.get('/test', (req,res)=>{
-    res.send('Hello , this is testing')
-})
 
 app.get('/about', (req, res) => {
-    res.redirect('/test')
+    res.set('Platform', 'Fiverr and Upwork');
+    console.log(res.get('Platform'))
     res.end()
 })
 
