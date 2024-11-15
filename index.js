@@ -4,7 +4,7 @@ const app = express();
 app.set('view engine', 'ejs')
 
 app.get('/about', (req, res) => {
-    res.cookie('uni-name','Bremen');
+    res.location('/test')
     res.end()
 })
 
