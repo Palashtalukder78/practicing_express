@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express();
 
-app.set('view engine', 'ejs')
+app.get('/test', (req,res)=>{
+    res.send('Hello , this is testing')
+})
 
 app.get('/about', (req, res) => {
-    res.location('/test')
+    res.redirect('/test')
     res.end()
 })
 
