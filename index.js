@@ -4,7 +4,9 @@ const app = express();
 app.set('view engine', 'ejs')
 
 app.get('/about', (req, res) => {
-    res.render('pages/about')
+    res.render('pages/about', {
+        name: 'Bangladesh'
+    })
 })
 
 app.listen(4000, () => {
