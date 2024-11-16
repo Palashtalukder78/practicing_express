@@ -1,16 +1,12 @@
 const express = require('express')
 const app = express();
 
-const myMiddleware1 = (req,res,next)=>{
-    console.log('Middleware 1')
-    next()
-}
-const myMiddleware2 = (req,res,next)=>{
-    console.log('Middleware 2')
-    next()
+const logger = (req,res,next)=>{
+    console.log(`${new Date(Date.now()).toLocaleString()} - ${req.method} - ${req.originalUrl} - ${req.protocol} - ${req.ip}`);
+    res.end()
 }
 
-app.use(myMiddleware1, myMiddleware2)
+app.use(logger)
 
 app.get('/about', (req, res) => {
     res.send('About')
