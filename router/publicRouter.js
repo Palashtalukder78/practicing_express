@@ -1,23 +1,20 @@
 const express = require('express');
+const adminRouter = require('./adminRouter');
 const publicRouter = express.Router();
 
-publicRouter
-    .route('/user')
-    .all((req,res,next)=>{
-        console.log('Middleware')
-        next()
-    })
-    .get((req,res)=>{
-        res.send('Get About page')
-    })
-    .post((req,res)=>{
-        res.send('Post About page')
-    })
-    .put((req,res)=>{
-        res.send('Put About page')
-    })
-    .delete((req,res)=>{
-        res.send('Delete About page')
-    })
+publicRouter.get('/', (req,res)=>{
+    res.send(a)
+})
+
+//invisible default error handleing
+/* app.use((err,req,res,next)=>{
+
+}) */
+
+//overwrite
+publicRouter.use((err,req,res,next)=>{
+    console.log(err)
+    res.send("There was a server side error!")
+})
 
 module.exports = publicRouter;
