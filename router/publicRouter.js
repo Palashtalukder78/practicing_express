@@ -1,14 +1,13 @@
 const express = require('express');
 const publicRouter = express.Router();
 
-const log = (req, res, next) => {
-    console.log('I am middleware');
-    next()
-}
-publicRouter.all('*', log)
+publicRouter.param('user', (req, res, next, id) => {
+    req.user = id === '1' ? "Admin" : 'Anonymous';
+    next();
+})
 
-publicRouter.get('/', (req, res) => {
-    res.send('Home')
+publicRouter.get('/:user', (req, res) => {
+    res.send(`Welcome ${req.user}`)
 })
 publicRouter.get('/about', (req, res) => {
     res.send('About')
