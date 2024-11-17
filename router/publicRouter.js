@@ -3,7 +3,14 @@ const adminRouter = require('./adminRouter');
 const publicRouter = express.Router();
 
 publicRouter.get('/', (req, res) => {
-    res.send(a)
+    for(let i=0; i<10; i++){
+        if(i === 5){
+            next('There was an Error')
+        }else{
+            res.write('a')
+        }
+    }
+    res.end()
 })
 
 publicRouter.use((req,res,next)=>{
@@ -18,10 +25,14 @@ publicRouter.use((req,res,next)=>{
 
 //overwrite
 publicRouter.use((err, req, res, next) => {
-    if (err.message) {
-        res.status(500).send(err.message)
+    if (res.headersSent) {
+        next('There was an Problem')
     } else {
-        res.status(500).send("There was a server side error!")
+        if(err.message){
+            res.status(500).send(err.message)
+        }else{
+            res.status(500).send('There was a server erro')
+        }
     }
 })
 
