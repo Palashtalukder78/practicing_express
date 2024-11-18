@@ -10,7 +10,7 @@ const upload = multer({ dest: UPLOAD_FOLDER })
 
 const app = express();
 
-app.post("/", upload.single('avatar'), (req, res) => {
+app.post("/", upload.array('avatar', 3), (req, res) => {
     res.send('Hello word')
 })
 
