@@ -11,11 +11,22 @@ const upload = multer({
         fileSize: 1000000,
     },
     fileFilter: (req, file, cb) => {
-        if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
-            cb(null, true)
-        } else {
-            // cb(null, false)
-            cb(new Error('Only Jpg,Png and jpeg supported'))
+        if(file.fieldname === 'avatar'){
+            if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+                cb(null, true)
+            } else {
+                // cb(null, false)
+                cb(new Error('Only Jpg,Png and jpeg allowed'))
+            }
+        } else if (file.fieldname === 'doc'){
+            if (file.mimetype === 'application/pdf') {
+                cb(null, true)
+            } else {
+                // cb(null, false)
+                cb(new Error('Only pdf allowed'))
+            }
+        }else{
+            cb(new Error('There was an unknown Error'))
         }
     }
 })
@@ -23,14 +34,14 @@ const upload = multer({
 
 const app = express();
 
-app.post("/", upload.single('avatar'), (req, res) => {
+app.post("/", upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'doc', maxCount: 1 }]), (req, res) => {
     res.send('Hello word')
 })
 
-app.use((err,req,res,next)=>{
-    if(err){
+app.use((err, req, res, next) => {
+    if (err) {
         res.status(500).send(err.message)
-    }else{
+    } else {
         res.send('Success')
     }
 })
