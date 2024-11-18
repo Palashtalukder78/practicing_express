@@ -48,6 +48,7 @@ const upload = multer({
 const app = express();
 
 app.post("/", upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'doc', maxCount: 1 }]), (req, res) => {
+    console.log(req.files)//we will get it from req
     res.send('Hello word')
 })
 
